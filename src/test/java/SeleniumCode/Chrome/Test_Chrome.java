@@ -1,5 +1,6 @@
 package SeleniumCode.Chrome;
 
+import Browser.BrowserFactory;
 import PO.PaginaInicioPO;
 import PO.SegundapagePO;
 import Utiles.DatosSistemaTest;
@@ -25,16 +26,13 @@ public class Test_Chrome {
     SegundapagePO SP;
 
     @Given("^como cliente ingreso a la url \"([^\"]*)\"$")
-    public void como_cliente_ingreso_a_la_url(String url) throws Exception {
+    public void como_cliente_ingreso_a_la_url(String url) throws Throwable {
         PropertyConfigurator.configure(log4jConfPath);
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("enable-automation");
-        //options.addArguments("--headless","--window-size=1920,1080","--ignore-certificate-errors");
-        options.addArguments("--start-maximized", "--ignore-certificate-errors");
-        options.addArguments("--no-sandbox");
-        options.setPageLoadStrategy(PageLoadStrategy.NONE);
-        driver = new ChromeDriver(options);
+       /**Chrome**/
+        this.driver = BrowserFactory.getBrowser ("1920,1080", "chrome");
+        /**Fire Fox**/
+        this.driver = BrowserFactory.getBrowser ("1920,1080", "FireFox");
+        //driver = new ChromeDriver(options);
         this.PI = new PaginaInicioPO(driver);
         this.SP = new SegundapagePO(driver);
         PI.ingreso(url);
